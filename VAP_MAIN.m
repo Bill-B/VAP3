@@ -23,10 +23,11 @@ disp(' ');
 % filename = 'inputs/simple-wing.vap';
 % filename = 'inputs/simple-wing-sym.vap';
 % filename = 'inputs/rotors_only.vap';
-% filename = 'inputs/TMotor.vap';
+filename = 'inputs/TMotor.vap';
 % filename = 'inputs/single_dve_rotor.vap';
 % filename = 'inputs/StandardCirrusTail2.vap'; % 100       1.25574     0.02930    Alpha=15 No tail m = 2
 % filename = 'inputs/J_COLE_BASELINE_SYM.vap';
+% filename = 'inputs/QuadRotor.vap';
 
 filename = 'inputs/QuadRotor.vap'
 
@@ -45,14 +46,14 @@ flagTRI = 0;
 flagGPU = 1
 
 % flagSTEADY = 1
-flagRELAX = 1
-valMAXTIME = 150
-valDELTIME = 0.002
+% flagRELAX = 0
+% valMAXTIME = 150
+% valDELTIME = 0.001
 
 flagPRINT   = 1;
 flagPLOT    = 1;
 flagCIRCPLOT = 0;
-flagGIF = 1;
+flagGIF = 0;
 flagPREVIEW = 0;
 flagPLOTWAKEVEL = 0;
 flagPLOTUINF = 0;
@@ -93,7 +94,7 @@ vecCLF = nan(valMAXTIME,valVEHICLES);
 vecCLI = nan(valMAXTIME,valVEHICLES);
 vecCDI = nan(valMAXTIME,valVEHICLES);
 vecE = nan(valMAXTIME,valVEHICLES);
-vecCT = nan(valMAXTIME,valVEHICLES);
+vecCT = nan(valMAXTIME,max(vecDVEROTOR));
 
 % Initializing wake parameters
 matWAKEGEOM = [];
@@ -122,6 +123,7 @@ vecWDVESYM = [];
 vecWDVETIP = [];
 vecWDVESURFACE = [];
 vecWDVETRI = [];
+vecCTCONV = [];
 
 % Building wing resultant
 [vecR] = fcnRWING(valNELE, 0, matCENTER, matDVENORM, matUINF, valWNELE, matWDVE, ...
@@ -201,11 +203,11 @@ for valTIMESTEP = 1:valMAXTIME
         %[hFig2] = fcnPLOTBODY(0, valNELE, matDVE, matVLST, matCENTER, [])
         
         %% Forces
-        [vecCL(valTIMESTEP,:), vecCLF(valTIMESTEP,:), vecCLI(valTIMESTEP,:), vecCDI(valTIMESTEP,:), vecCT(valTIMESTEP,:), vecE(valTIMESTEP,:), vecDVENFREE, vecDVENIND, ...
+        [vecCTCONV, vecCL(valTIMESTEP,:), vecCLF(valTIMESTEP,:), vecCLI(valTIMESTEP,:), vecCDI(valTIMESTEP,:), vecCT(valTIMESTEP,:), vecE(valTIMESTEP,:), vecDVENFREE, vecDVENIND, ...
             vecDVELFREE, vecDVELIND, vecDVESFREE, vecDVESIND] = fcnFORCES(matCOEFF, vecK, matDVE, valNELE, matCENTER, matVLST, matUINF, vecDVELESWP, ...
             vecDVEMCSWP, vecDVEHVSPN, vecDVEHVCRD, vecDVEROLL, vecDVEPITCH, vecDVEYAW, vecDVELE, vecDVETE, matADJE, valWNELE, matWDVE, matWVLST, ...
             matWCOEFF, vecWK, vecWDVEHVSPN, vecWDVEHVCRD, vecWDVEROLL, vecWDVEPITCH, vecWDVEYAW, vecWDVELESWP, vecWDVETESWP, valWSIZE, valTIMESTEP, ...
-            vecDVESYM, vecDVETESWP, vecAREA, vecSPAN, [], vecDVEWING, vecWDVESURFACE, vecN, vecM, vecDVEPANEL, vecDVEVEHICLE, valVEHICLES, matVEHROT, flagTRI, flagSTEADY, flagGPU, vecDVEROTOR, matROTORAXIS, vecROTORRPM, vecROTDIAM);
+            vecDVESYM, vecDVETESWP, vecAREA, vecSPAN, [], vecDVEWING, vecWDVESURFACE, vecN, vecM, vecDVEPANEL, vecDVEVEHICLE, valVEHICLES, matVEHROT, flagTRI, flagSTEADY, flagGPU, vecDVEROTOR, matROTORAXIS, vecROTORRPM, vecROTDIAM, valDELTIME, vecCTCONV);
         
     end
     
