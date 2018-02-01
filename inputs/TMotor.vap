@@ -5,7 +5,7 @@
 		<flagRELAX>FALSE</flagRELAX>
 		<flagSTEADY>TRUE</flagSTEADY>
 		<flagTRI>FALSE</flagTRI>
-		<valMAXTIME>40</valMAXTIME>
+		<valMAXTIME>200</valMAXTIME>
 		<valMINTIME>0</valMINTIME>
 		<valDELTIME>0.001</valDELTIME>
 		<valDELTAE>0</valDELTAE>
@@ -26,7 +26,7 @@
 		<alpha>0</alpha>
 		<beta>0</beta>
 		<roll>0</roll>
-		<fpa>0</fpa>
+		<fpa>90</fpa>
 		<trk>0</trk>
 
 		<area>12.6</area>
